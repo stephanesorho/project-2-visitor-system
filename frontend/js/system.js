@@ -18,6 +18,18 @@ window.onload = () => {
  */
 
 async function loadData() {
+  // 1. Hard-coding the host should be avoided.
+  // Because this js and the backend runs on the same domain and host,
+  // you can just use await fetch("/getVisitors") instead.
+  // 2. Since you're already using async await, you don't need the
+  // then() chain. Promise (where the then() function comes from)
+  // is invented to replace the "callback hell" (which is nested) with a then() chain.
+  // async / await is an improvement on top of that.
+  // You can just assign the result of the await call to a variable,
+  // and operate on the variable thereafter.
+  // Like:
+  // let res = await fetch("/getVisitors");
+  // if (res.ok) ...
   await fetch("http://localhost:3000/getVisitors")
     .then((res) => {
       if (res.ok) {

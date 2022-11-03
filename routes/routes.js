@@ -39,6 +39,8 @@ router.post("/addVisitors", async (req, res) => {
     res.json(visitor);
   } catch (err) {
     console.error("# Post Error", err);
+    // It's recommended to not directly pass the raw error to front-end as it may expose backend information,
+    // instead write a custom error message like "It failed!"
     res.status(500).send({ error: err.name + ", " + err.message });
   }
 });

@@ -1,3 +1,4 @@
+/*nice way to remove the default styles*/
 * {
   padding: 0;
   margin: 0;
@@ -9,11 +10,13 @@
   border-radius: 30px;
 }
 
+/*I think the img tag is redundant since you have id here (#home-img)*/
 img#home-img {
   border-top-right-radius: 30px;
   border-bottom-right-radius: 30px;
 }
 
+/*same here, when you have id, you can use just the id*/
 div#messages {
   display: none;
 }
