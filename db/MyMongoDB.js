@@ -1,9 +1,12 @@
 import { MongoClient, ObjectId } from "mongodb";
 // DB
+// Good use of async await.
+// Good to have all database logic here so that rest of the code don't need to deal with it.
 function MyMongoDB() {
   const myDB = {};
   // const url = process.env.MONGO_URL || "mongodb://localhost:27017";
   //Using mongodb cloud
+  // I would recommend using environment variables to store the username and password.
   const url =
     "mongodb+srv://stephane:Mongopass123@cluster0.jicxbfs.mongodb.net/?retryWrites=true&w=majority";
   const DB_NAME = "visitorSystem";
@@ -12,6 +15,8 @@ function MyMongoDB() {
 
   // Get all visitors
   myDB.fetchVisitors = async () => {
+    // I think it's better to use a single client instance for all your functions instead of creating one
+    // for each function. Same for the collections: you only need one instance for each collection.
     const client = new MongoClient(url);
 
     const db = client.db(DB_NAME);
@@ -32,11 +37,13 @@ function MyMongoDB() {
     const res = await usersCol.findOne({ user: user.user });
 
     // Can't find user in db
+    // this can be replaced with "if (!res)"
     if (res == null || res == undefined) {
       return false;
     }
 
     //console.log("res", res, res.password == user.password);
+    // better to use === according to intellij (and eslint I guess)
     if (res.password == user.password) return true;
     return false;
   };
